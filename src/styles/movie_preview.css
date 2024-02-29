@@ -1,0 +1,87 @@
+
+
+.movie-container{
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.movie-img{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.info-like-btn-container{
+    display: flex;
+    gap: 7px;
+    justify-content: space-between;
+}
+
+.like-btn{
+    width: 30px;
+    height: 30px;
+}
+
+.like-btn-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-title{
+    font-family: Arial, serif;
+    font-size: 20px;
+    /*text-align: center;*/
+    margin-top: 10px;
+    line-height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 150px;
+    text-overflow: ellipsis;
+}
+
+p{
+    line-height: 5px;
+}
+
+.movie-year{
+    font-family: Arial, serif;
+    font-size: 17px;
+    /*text-align: center;*/
+    opacity: 0.7;
+    margin-top: 0;
+}
+
+.watch-btn{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #646cff;
+    color: white;
+    font-size: 17px;
+    font-family: Arial, serif;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.watch-btn:hover{
+    background-color: #535bf2;
+}
+
+.watch-btn:active{
+    background-color: #3a3f9e;
+}
+
+.visible{
+    display: block;
+}
+
+.hidden{
+    display: none;
+    height: 0;
+    margin-top: 0;
+}
