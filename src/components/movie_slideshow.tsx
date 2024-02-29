@@ -7,14 +7,14 @@ function MovieSlideshow() {
     const {movies_list} = useContext(AppContext);
 
     return (
-        <div>
-            <Carousel>
+        <div style={{position: "absolute", width:"100%", zIndex:0}}>
+            <Carousel indicators={false}>
                 {
                     movies_list.map((movie: { title: string; year: string; img: string; id: string; backdrop: string }) => {
                         return (
                             <Carousel.Item interval={3000} key={movie.id}>
-                                <img className="d-block w-100 object-fit-cover" style={{height: "550px"}} src={movie.backdrop}/>
-                                <Carousel.Caption>
+                                <img className="d-block w-100 object-fit-cover image" style={{height: "700px"}} src={movie.backdrop}/>
+                                <Carousel.Caption style={{marginBottom: "150px"}}>
                                     <h3>{movie.title}</h3>
                                     <p>{movie.year}</p>
                                 </Carousel.Caption>

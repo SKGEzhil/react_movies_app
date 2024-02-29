@@ -65,25 +65,40 @@ function Home() {
 
     return (
         <>
-            <div style={{position: "relative"}}>
-                <Navbar/>
-                <MovieSlideshow/>
-            </div>
+            <div className="home">
 
+                <div style={{position: "relative"}}>
+                    <Navbar/>
+                    <MovieSlideshow/>
+                </div>
 
+                <div className="gradient">
 
-            <div className="movies-grid-container">
-                {movies_list.map((movie: { title: string; year: string; img: string; id: string; }, index: Key | null | undefined) => {
-                    return (
-                        <MoviePreview
-                            key={index}
-                            title={movie.title}
-                            year={movie.year}
-                            img={movie.img}
-                            id={movie.id}
-                        />
-                    )
-                })}
+                </div>
+
+                <div className="movies-grid-container" style={{
+                    position: "relative",
+                    top: "550px",
+                    zIndex: 20
+                }} >
+                    {movies_list.map((movie: {
+                        title: string;
+                        year: string;
+                        img: string;
+                        id: string;
+                    }, index: Key | null | undefined) => {
+                        return (
+                            <MoviePreview
+                                key={index}
+                                title={movie.title}
+                                year={movie.year}
+                                img={movie.img}
+                                id={movie.id}
+                            />
+                        )
+                    })}
+                </div>
+
             </div>
 
 

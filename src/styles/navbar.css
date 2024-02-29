@@ -1,6 +1,6 @@
 .navbar-container{
     position: fixed;
-    z-index: 10;
+    z-index: 30;
     display: flex;
     width: 100%;
     justify-content: space-between;

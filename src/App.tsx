@@ -20,7 +20,7 @@ function App() {
 
 
     return (
-        <div>
+        <div style={{background: "#141414"}}>
             <AppContext.Provider value={{movies_list, update_list}}>
                 <Home/>
             </AppContext.Provider>
