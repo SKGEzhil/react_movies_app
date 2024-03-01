@@ -1,0 +1,36 @@
+.button-contianer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.img-container {
+    display: flex;
+    overflow: hidden;
+    gap: 20px;
+
+}
+
+.arrow-btn{
+    border: none;
+    border-radius: 25px;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.42);
+}
+
+.slider-title {
+    font-family: Arial, serif;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.arrow-btn:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.arrow-btn:active{
+    background-color: rgba(0, 0, 0, 0.9);
+}

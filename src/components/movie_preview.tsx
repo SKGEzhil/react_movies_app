@@ -144,7 +144,7 @@ function MoviePreview(props: Props) {
     }
 
     return (
-        <div className="movie-container">
+        <div onClick={handleClick} className="movie-container">
             <div>
                 <img
                     src={props.img}
@@ -169,9 +169,9 @@ function MoviePreview(props: Props) {
                     </div>
                 </div>
 
-                <button className="watch-btn" onClick={handleClick}>
-                    Watch Now
-                </button>
+                {/*<button className="watch-btn" onClick={handleClick}>*/}
+                {/*    Watch Now*/}
+                {/*</button>*/}
                 <Popper id={id} open={open} anchorEl={anchorEl} placement={"top-end"}>
                     <StreamOptionsPopup
                         heading={isLoading ? "Searching for options..." : streamDetails.length === 0 ? "No options available" : "Available Streaming Services"}

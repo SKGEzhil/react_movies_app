@@ -59,7 +59,7 @@ function SearchBar() {
 
     return (
         <div>
-            <input onChange={handleChange} type="text" placeholder="Search" className="search-bar"/>
+            <input type="text" placeholder="Search" className="search-bar"/>
         </div>
     );
 }
