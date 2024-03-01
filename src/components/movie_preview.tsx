@@ -1,8 +1,6 @@
 import "../styles/movie_preview.css";
-import * as React from "react";
 import {useEffect, useState} from "react";
 import StreamOptionsPopup from "./stream_options_popup.tsx";
-import {Popper} from '@mui/base/Popper';
 
 
 interface Props {
@@ -10,24 +8,10 @@ interface Props {
     year: string;
     img: string;
     id: string;
+    backdrop: string;
 }
 
 function MoviePreview(props: Props) {
-
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(anchorEl ? null : event.currentTarget);
-        if (streamDetails[0].service === 'default') {
-            getMovie(props.id);
-        }
-    };
-
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popper' : undefined;
-
 
     const [streamDetails, setStreamDetails] = useState<[{
         service: string,
@@ -36,6 +20,8 @@ function MoviePreview(props: Props) {
     }]>([{service: 'default', link: '', language: [{language: '', region: ''}]}]);
 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [isClicked, setIsClicked] = useState(false);
 
     const [watchlist, setWatchlist] = useState(JSON.parse(localStorage.getItem('watchlist') || '[]'));
 
@@ -143,10 +129,16 @@ function MoviePreview(props: Props) {
 
     }
 
+    const [showTooltip, setShowTooltip] = useState(false);
+
+
     return (
-        <div onClick={handleClick} className="movie-container">
+        <div
+             className="movie-container">
             <div>
                 <img
+                    onMouseEnter={() => setShowTooltip(true)}
+                    onMouseLeave={() => setShowTooltip(false)}
                     src={props.img}
                     className="movie-img"
                     alt="movie"/>
@@ -164,19 +156,70 @@ function MoviePreview(props: Props) {
                             className="like-btn">
 
 
-                            {watchlist.some((obj: {title: string, year:string, img:string, id:string}) => obj.id === props.id) ? "M" : "L"}
+                            {watchlist.some((obj: {
+                                title: string,
+                                year: string,
+                                img: string,
+                                id: string
+                            }) => obj.id === props.id) ? "M" : "L"}
                         </button>
                     </div>
                 </div>
 
-                {/*<button className="watch-btn" onClick={handleClick}>*/}
-                {/*    Watch Now*/}
-                {/*</button>*/}
-                <Popper id={id} open={open} anchorEl={anchorEl} placement={"top-end"}>
-                    <StreamOptionsPopup
-                        heading={isLoading ? "Searching for options..." : streamDetails.length === 0 ? "No options available" : "Available Streaming Services"}
-                        options={streamDetails}/>
-                </Popper>
+                <div
+                    onMouseEnter={() => setShowTooltip(true)}
+                    onMouseLeave={() => setShowTooltip(false)}
+                    className={`tooltip ${showTooltip ? "open" : ""}`}>
+
+                    <div className="tooltip-page-1" style={isClicked ? {display: "none"} : {}}>
+                        <img src={props.backdrop} className="tooltip-backdrop-img"/>
+                        <p className="tooltip-title-txt">{props.title}</p>
+                        <div style={{display: "flex", justifyContent: "space-between"}}>
+                            <button
+                                onClick={() => {
+                                    if (streamDetails[0].service === 'default') {
+                                        getMovie(props.id);
+                                    }
+                                    setIsClicked(true);
+                                }}
+                                className="watch-btn">
+                                Watch Now
+                            </button>
+
+                            <button className="watch-btn">
+                                L
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <div
+                        onMouseEnter={() => setShowTooltip(true)}
+                        onMouseLeave={() => setShowTooltip(false)}
+                        className="tooltip-page-2" style={isClicked ? {} : {display: "none"}}>
+                        <div style={{display: "flex", flexDirection: "row"}}>
+                            <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                                <button
+                                    style={{display: "flex", flexDirection: "column", justifyContent: "center"}}
+                                    onClick={() => {
+                                        setIsClicked(false);
+                                    }}
+                                    className="back-btn"><p style={{marginTop: "15px", marginLeft: "5px"}}>&lt;</p></button>
+                            </div>
+
+                            <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                                <p className="heading">{isLoading ? "Searching..." : streamDetails.length === 0 ? "No options available" : "Available Services"}</p>
+                            </div>
+                        </div>
+                        {/* randon height is to ensure that the mouse is hovering over the whole region*/}
+                        <div style={{height: "250px"}}>
+                            <StreamOptionsPopup heading={"heading"} options={streamDetails}/>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 

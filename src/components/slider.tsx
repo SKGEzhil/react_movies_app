@@ -34,14 +34,14 @@ const Slider = (props: Props) => {
 
     return (
         <>
-            <div style={{position: "relative"}}>
+            <div style={{position: "relative",}}>
                 <div className="slider-title">
                     <h2>{props.sliderTitle}</h2>
                 </div>
-                <div className="button-contianer" style={{zIndex: 40, position: "absolute", top: "35%", width: "100%"}}>
+                <div className="button-contianer" style={{zIndex: 40, position: "absolute", top: "37.5 px", width: "100%"}}>
                     <button
                         className="arrow-btn"
-                        style={{position: "absolute", left: "0", zIndex: 100, marginLeft: "10px"}}
+                        style={{position: "absolute", left: "0", zIndex: 100}}
                         onClick={() => {
                             handleHorizantalScroll(elementRef.current, 3.5, 800, -10);
                         }}
@@ -52,7 +52,7 @@ const Slider = (props: Props) => {
                     <div ></div>
                     <button
                         className="arrow-btn"
-                        style={{position: "absolute", right: "0", zIndex: 100, marginRight: "10px"}}
+                        style={{position: "absolute", right: "0", zIndex: 100}}
                         onClick={() => {
                             handleHorizantalScroll(elementRef.current, 3.5, 800, 10);
                         }}
@@ -62,7 +62,7 @@ const Slider = (props: Props) => {
                 </div>
                 <div className="img-container" ref={elementRef} style={{zIndex: 100}}>
                     {props.data.map((item) => (
-                        <MoviePreview title={item.title} year={item.year} img={item.img} id={item.id}/>
+                        <MoviePreview title={item.title} year={item.year} img={item.img} id={item.id} backdrop={item.backdrop}/>
                     ))}
                 </div>
             </div>

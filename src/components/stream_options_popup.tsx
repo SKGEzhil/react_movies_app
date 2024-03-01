@@ -7,8 +7,8 @@ interface Props {
 
 function StreamOptionsPopup(props: Props) {
     return (
-        <div className={"popup-container"}>
-            <p className="heading">{props.heading}</p>
+        // <div className={"popup-container"}>
+        //     <p className="heading">{props.heading}</p>
             <>
                 <div className="link-btn-grid">
 
@@ -20,29 +20,39 @@ function StreamOptionsPopup(props: Props) {
                                     "/src/assets/film.png"
 
                         return (
-                            <a href={option.link}
-                               target="_blank" rel="noreferrer">
-                                <div className="link-btn">
-                                    <img className="service-logo" src={image}/>
-                                    <div style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "center"
-                                    }}>
-                                        <p className="service-txt">{option.service}</p>
-
-                                        <div style={{display: "flex"}}>
-                                            {option.language.map((lang, index) => {
-                                                return (
-                                                    <p key={index} className="audio-txt">{lang.language}</p>
-                                                )
-                                            })}
+                            <div>
+                                <a href={option.link}
+                                   className="text-decoration-none"
+                                   target="_blank" rel="noreferrer">
+                                    <div className="link-btn">
+                                        <div style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            flexDirection: "column"
+                                        }}>
+                                            <img className="service-logo" src={image}/>
                                         </div>
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center"
+                                        }}>
+                                            <p className="service-txt">{option.service}</p>
+
+                                            <div style={{display: "flex", width: "80px", flexWrap: "wrap"}}>
+                                                {option.language.map((lang, index) => {
+                                                    return (
+                                                        <p key={index} className="audio-txt">{lang.language}</p>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+
                                     </div>
 
-                                </div>
+                                </a>
+                            </div>
 
-                            </a>
                         )
 
                     })}
@@ -50,7 +60,7 @@ function StreamOptionsPopup(props: Props) {
 
             </>
 
-        </div>
+        // </div>
     );
 }
 

@@ -42,6 +42,58 @@
     text-overflow: ellipsis;
 }
 
+.tooltip {
+    width: 0px;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #1e1e1e;
+    box-shadow: 0px 0px 10px #000000;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-25%);
+    height: 0px;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.tooltip.open {
+    width: 280px;
+    transform: translateY(-50%) translateX(-25%);
+    height: 100%;
+    opacity: 1;
+}
+
+.tooltip-backdrop-img{
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.tooltip-title-txt{
+    line-height: 22px;
+    font-family: Arial, serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-left: 10px;
+    color: #e5e5e5;
+}
+
+.heading{
+    line-height: 22px;
+    font-family: Arial, serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    color: #e5e5e5;
+}
+
 p{
     line-height: 5px;
 }
@@ -56,11 +108,12 @@ p{
 }
 
 .watch-btn{
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #646cff;
-    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #ffffff;
+    color: #000000;
     font-size: 17px;
     font-family: Arial, serif;
     text-align: center;
@@ -71,15 +124,31 @@ p{
 }
 
 .watch-btn:hover{
-    background-color: #535bf2;
+    background-color: rgba(255, 255, 255, 0.81);
 }
 
 .watch-btn:active{
-    background-color: #3a3f9e;
+    background-color: rgba(255, 255, 255, 0.61);
 }
 
 .visible{
     display: block;
+}
+
+.back-btn{
+    padding: 5px;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-family: Arial, serif;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
 }
 
 .hidden{
