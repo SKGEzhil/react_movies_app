@@ -6,7 +6,6 @@ function MovieSlideshow() {
 
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     const {movies_list} = useContext(AppContext);
 
     return (

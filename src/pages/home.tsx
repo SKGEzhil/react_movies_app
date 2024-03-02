@@ -1,6 +1,6 @@
 import '../styles/home.css'
 import Navbar from "../components/navbar.tsx";
-import {useContext, useEffect,} from "react";
+import { useContext, useEffect,} from "react";
 import AppContext from "../app_context.tsx";
 import MovieSlideshow from "../components/movie_slideshow.tsx";
 import Slider from "../components/slider.tsx";
@@ -10,7 +10,6 @@ import Slider from "../components/slider.tsx";
 function Home() {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     const {movies_list, update_list, tv_list, update_tv_list} = useContext(AppContext);
 
     // const {movies_list, update_list} = useGlobalState();
@@ -58,9 +57,13 @@ function Home() {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     if(!isTv) {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
                         update_list(temp_list);
                         localStorage.setItem('default_movies_list', JSON.stringify(temp_list));
                     } else {
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-expect-error
                         update_tv_list(temp_list);
                         localStorage.setItem('default_tv_list', JSON.stringify(temp_list));
                     }
@@ -127,7 +130,7 @@ function Home() {
                     {/*            year={movie.year}*/}
                     {/*            img={movie.img}*/}
                     {/*            id={movie.id}*/}
-                    {/*        />*/}
+                    {/*         backdrop={movie.backdrop}/>*/}
                     {/*    )*/}
                     {/*})}*/}
                 </div>

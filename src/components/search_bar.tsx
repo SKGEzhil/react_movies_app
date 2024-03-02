@@ -1,13 +1,14 @@
 import "../styles/search_bar.css";
 import {ChangeEvent, useContext, useState} from "react";
 import AppContext from "../app_context.tsx";
+import {base_route} from "../App.tsx";
+import {useNavigate} from "react-router-dom";
 
 function SearchBar() {
 
     const [inputText, setInputText] = useState("");
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const {update_list} = useContext(AppContext);
+    const {update_search_result_list} = useContext(AppContext);
 
     const options = {
         method: 'GET',
@@ -17,12 +18,13 @@ function SearchBar() {
         }
     };
 
-    const temp_list: { title: string; year: string; img: string; id: string }[] = [];
+    const temp_list: { title: string; year: string; img: string; id: string, backdrop: string }[] = [];
 
     const fetchSearchResults = (query: string) => {
         fetch(`https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=1`, options)
             .then(response => response.json())
             .then(response => {
+                console.log("Search Results: 1");
                 for (let i = 0; i < response.results.length; i++) {
                     const data = response.results[i];
                     temp_list.push(
@@ -30,12 +32,15 @@ function SearchBar() {
                             title: data.title,
                             year: data.release_date,
                             img: `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${data.poster_path}`,
-                            id: data.id
-
+                            id: data.id,
+                            backdrop: `https://www.themoviedb.org/t/p/w1920_and_h1080_bestv2/${data.backdrop_path}`
                         }
                     );
+                    console.log("Search Results: 2");
                 }
-                update_list(temp_list);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                update_search_result_list(temp_list);
             })
             .catch(err => console.error(err));
     }
@@ -44,22 +49,39 @@ function SearchBar() {
         // Store the input value to local state
         setInputText(e.target.value);
         console.log(`Input: ${inputText}`);
-
-        if(e.target.value !== "") {
-            fetchSearchResults(e.target.value);
-        } else {
-            update_list(JSON.parse(localStorage.getItem('default_movies_list') || ''));
-        }
-
-        // for (let i = 0; i < searchResults.length; i++){
-        //     console.log(`Result: ${searchResults[i].title}`);
-        // }
-
     };
 
+    const navigate = useNavigate();
+
     return (
-        <div>
-            <input type="text" placeholder="Search" className="search-bar"/>
+        <div style={{display: "flex"}}>
+            <input type="text"
+                   onChange={handleChange}
+                   onKeyDown={(e) => {
+                       if (e.key === "Enter")
+                       {
+                           if (inputText !== "") {
+                               console.log("fetching search results")
+                               navigate(`${base_route}/search`);
+                               fetchSearchResults(inputText);
+                               console.log("fetched search results")
+                           }
+                       }
+                   }}
+                   placeholder="Search"
+                   className="search-bar"/>
+
+                <button className="search-btn text-decoration-none" onClick={() => {
+                    if (inputText !== "") {
+                        console.log("fetching search results")
+                        navigate(`${base_route}/search`);
+                        fetchSearchResults(inputText);
+                        console.log("fetched search results")
+                    }
+                }}>
+                    Search
+                </button>
+            {/*</NavLink>*/}
         </div>
     );
 }

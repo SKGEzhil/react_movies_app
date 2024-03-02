@@ -14,10 +14,10 @@ function StreamOptionsPopup(props: Props) {
 
                     {props.options.map((option) => {
 
-                        const image = option.service === "netflix" ? "/src/assets/netflix.webp" :
-                            option.service === "prime" ? "/src/assets/prime.png" :
-                                option.service === "zee5" ? "/src/assets/zee5.svg" :
-                                    "/src/assets/film.png"
+                        const image = option.service === "netflix" ? "/react_movies_app/netflix.webp" :
+                            option.service === "prime" ? "/react_movies_app/prime.png" :
+                                option.service === "zee5" ? "/react_movies_app/zee5.svg" :
+                                    "/react_movies_app/film.png"
 
                         return (
                             <div>

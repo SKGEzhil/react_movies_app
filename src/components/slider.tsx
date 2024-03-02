@@ -3,7 +3,7 @@ import "../styles/slider.css";
 import MoviePreview from "./movie_preview.tsx";
 
 interface Props {
-    data: [{title: string, year: string, img: string, id: string, backdrop: string}];
+    data: {title: string, year: string, img: string, id: string, backdrop: string}[];
     sliderTitle: string;
 }
 

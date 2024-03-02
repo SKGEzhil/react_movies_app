@@ -25,6 +25,9 @@ function MoviePreview(props: Props) {
 
     const [watchlist, setWatchlist] = useState(JSON.parse(localStorage.getItem('watchlist') || '[]'));
 
+    const [showTooltip, setShowTooltip] = useState(false);
+
+
     const getMovie = (movie_id: string) => {
         const url = `https://streaming-availability.p.rapidapi.com/get?output_language=en&tmdb_id=movie%2F${movie_id}`;
         const options = {
@@ -68,9 +71,6 @@ function MoviePreview(props: Props) {
                         // @ts-expect-error
                         setStreamDetails(temp_list);
                         setIsLoading(false);
-                        // console.log(`Streaming Service: ${data.result.streamingInfo.in[0].service}`);
-                        // console.log(`Streaming URL: ${data.result.streamingInfo.in[0].link}`);
-                        //   window.open(data.result.streamingInfo.in[0].link, '_blank');
                     }));
 
         } catch (error) {
@@ -95,19 +95,13 @@ function MoviePreview(props: Props) {
 
     const updateWatchList = () => {
 
-        console.log(`clicked_2`);
-
         const watchlist_json = JSON.parse(localStorage.getItem('watchlist') || '[]');
         const watchlist_ = [];
-
-        console.log(`clicked_3`);
 
 
         for (let i = 0; i < watchlist_json.length; i++) {
             watchlist_.push({title: watchlist_json[i].title, year: watchlist_json[i].year, img: watchlist_json[i].img, id: watchlist_json[i].id});
         }
-
-        console.log(`clicked_4`);
 
         if (watchlist_.some(obj => obj.id === props.id)) {
             for (let i = 0; i < watchlist_.length; i++) {
@@ -120,17 +114,10 @@ function MoviePreview(props: Props) {
             watchlist_.push({title: props.title, year: props.year, img: props.img, id: props.id});
         }
 
-        console.log(`clicked_5`);
-
         localStorage.setItem('watchlist', JSON.stringify(watchlist_));
         setWatchlist(watchlist_);
 
-        console.log(`clicked_6`);
-
     }
-
-    const [showTooltip, setShowTooltip] = useState(false);
-
 
     return (
         <div
@@ -172,7 +159,7 @@ function MoviePreview(props: Props) {
                     className={`tooltip ${showTooltip ? "open" : ""}`}>
 
                     <div className="tooltip-page-1" style={isClicked ? {display: "none"} : {}}>
-                        <img src={props.backdrop} className="tooltip-backdrop-img"/>
+                        <img src={props.backdrop} className="tooltip-backdrop-img" alt="backdrop"/>
                         <p className="tooltip-title-txt">{props.title}</p>
                         <div style={{display: "flex", justifyContent: "space-between"}}>
                             <button
@@ -208,7 +195,7 @@ function MoviePreview(props: Props) {
                             </div>
 
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                <p className="heading">{isLoading ? "Searching..." : streamDetails.length === 0 ? "No options available" : "Available Services"}</p>
+                                <p className="heading">{isLoading ? "Searching..." : streamDetails.length === (1-1) ? "No options available" : "Available Services"}</p>
                             </div>
                         </div>
                         {/* randon height is to ensure that the mouse is hovering over the whole region*/}
