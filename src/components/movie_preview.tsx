@@ -1,6 +1,7 @@
 import "../styles/movie_preview.css";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import StreamOptionsPopup from "./stream_options_popup.tsx";
+import AppContext from "../app_context.tsx";
 
 
 interface Props {
@@ -19,11 +20,13 @@ function MoviePreview(props: Props) {
         language: [{ language: string, region: string }]
     }]>([{service: 'default', link: '', language: [{language: '', region: ''}]}]);
 
+    const {watchlist, update_watchlist} = useContext(AppContext);
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [isClicked, setIsClicked] = useState(false);
 
-    const [watchlist, setWatchlist] = useState(JSON.parse(localStorage.getItem('watchlist') || '[]'));
+    // const [watchlist, setWatchlist] = useState(JSON.parse(localStorage.getItem('watchlist') || '[]'));
 
     const [showTooltip, setShowTooltip] = useState(false);
 
@@ -86,7 +89,9 @@ function MoviePreview(props: Props) {
             watchlist_.push({title: watchlist_json[i].title, year: watchlist_json[i].year, img: watchlist_json[i].img, id: watchlist_json[i].id});
         }
 
-        setWatchlist(watchlist_);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        update_watchlist(watchlist_);
     }
 
     useEffect(() => {
@@ -100,7 +105,7 @@ function MoviePreview(props: Props) {
 
 
         for (let i = 0; i < watchlist_json.length; i++) {
-            watchlist_.push({title: watchlist_json[i].title, year: watchlist_json[i].year, img: watchlist_json[i].img, id: watchlist_json[i].id});
+            watchlist_.push({title: watchlist_json[i].title, year: watchlist_json[i].year, img: watchlist_json[i].img, id: watchlist_json[i].id, backdrop: watchlist_json[i].backdrop});
         }
 
         if (watchlist_.some(obj => obj.id === props.id)) {
@@ -115,7 +120,9 @@ function MoviePreview(props: Props) {
         }
 
         localStorage.setItem('watchlist', JSON.stringify(watchlist_));
-        setWatchlist(watchlist_);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        update_watchlist(watchlist_);
 
     }
 
@@ -142,13 +149,15 @@ function MoviePreview(props: Props) {
                             }}
                             className="like-btn">
 
+                            <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                                <img style={{width: "23px", height: "23px"}} src={watchlist.some((obj: {
+                                    title: string,
+                                    year: string,
+                                    img: string,
+                                    id: string
+                                }) => obj.id === props.id) ? "/react_movies_app/bookmark-2.png" : "/react_movies_app/bookmark.png"}/>
+                            </div>
 
-                            {watchlist.some((obj: {
-                                title: string,
-                                year: string,
-                                img: string,
-                                id: string
-                            }) => obj.id === props.id) ? "M" : "L"}
                         </button>
                     </div>
                 </div>
@@ -163,6 +172,7 @@ function MoviePreview(props: Props) {
                         <p className="tooltip-title-txt">{props.title}</p>
                         <div style={{display: "flex", justifyContent: "space-between"}}>
                             <button
+                                style={{marginTop: 0}}
                                 onClick={() => {
                                     if (streamDetails[0].service === 'default') {
                                         getMovie(props.id);
@@ -173,9 +183,39 @@ function MoviePreview(props: Props) {
                                 Watch Now
                             </button>
 
-                            <button className="watch-btn">
-                                L
-                            </button>
+                            <div style={{display: "flex", flexDirection: "row", alignItems: "center", backgroundColor: "rgba(255,255,255,0.22)", borderRadius: "7px", marginRight: "10px"}}>
+                                <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+                                    <p style={{color: "white", marginBottom: 0, width: "80px", lineHeight: "14px", textAlign: "center"}}>Add to WatchList</p>
+
+                                </div>
+                                <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems:"center"}}>
+                                    <button
+                                        style={{marginTop:0}}
+                                        onClick={() => {
+                                            console.log(`Clicked`);
+                                            updateWatchList();
+                                        }}
+                                        className="like-btn">
+
+                                        <div style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                            alignItems: "center"
+                                        }}>
+                                            <img style={{width: "23px", height: "23px"}} src={watchlist.some((obj: {
+                                                title: string,
+                                                year: string,
+                                                img: string,
+                                                id: string
+                                            }) => obj.id === props.id) ? "/react_movies_app/bookmark-2.png" : "/react_movies_app/bookmark.png"}/>
+                                        </div>
+
+                                    </button>
+                                </div>
+
+                            </div>
+
 
                         </div>
                     </div>
@@ -191,11 +231,12 @@ function MoviePreview(props: Props) {
                                     onClick={() => {
                                         setIsClicked(false);
                                     }}
-                                    className="back-btn"><p style={{marginTop: "15px", marginLeft: "5px"}}>&lt;</p></button>
+                                    className="back-btn"><p style={{marginTop: "15px", marginLeft: "5px"}}>&lt;</p>
+                                </button>
                             </div>
 
                             <div style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                <p className="heading">{isLoading ? "Searching..." : streamDetails.length === (1-1) ? "No options available" : "Available Services"}</p>
+                            <p className="heading">{isLoading ? "Searching..." : streamDetails.length === (1-1) ? "No options available" : "Available Services"}</p>
                             </div>
                         </div>
                         {/* randon height is to ensure that the mouse is hovering over the whole region*/}

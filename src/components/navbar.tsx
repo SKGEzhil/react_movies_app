@@ -26,7 +26,7 @@ function Navbar() {
 
                 <div className="title-container">
                     <p className="title-txt">
-                        Movies App
+                        React Movies App
                     </p>
                 </div>
             </div>

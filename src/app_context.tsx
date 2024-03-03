@@ -7,6 +7,8 @@ const AppContext = createContext({
         update_tv_list: (list: [{ title: string; year: string; img: string; id: string; backdrop: string }]) => {console.log(list)},
         search_result_list: [{ title: '', year: '', img: '', id: '', backdrop: '' }],
         update_search_result_list: (list: [{ title: string; year: string; img: string; id: string; backdrop: string }]) => {console.log(list)},
+        watchlist: [{ title: '', year: '', img: '', id: '', backdrop: '' }],
+        update_watchlist: (list: [{ title: string; year: string; img: string; id: string; backdrop: string }]) => {console.log(list)}
 
     }
 )

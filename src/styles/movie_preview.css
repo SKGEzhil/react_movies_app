@@ -21,6 +21,27 @@
 .like-btn{
     width: 30px;
     height: 30px;
+    padding: 0;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 17px;
+    font-family: Arial, serif;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.like-btn:hover{
+    background-color: rgba(255, 255, 255, 0.81);
+}
+
+.like-btn:active{
+    background-color: rgba(255, 255, 255, 0.61);
 }
 
 .like-btn-container{
@@ -130,6 +151,7 @@ p{
 .watch-btn:active{
     background-color: rgba(255, 255, 255, 0.61);
 }
+
 
 .visible{
     display: block;
