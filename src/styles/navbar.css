@@ -10,6 +10,23 @@
     opacity: 1;
 }
 
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 6px 20px;
+    transition: 0.4s;
+}
+
+.menu-container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.menu-container:active .bar1, .menu-container:active .bar2, .menu-container:active .bar3{
+    background-color: #d9d9d9;
+}
+
 .logo-title-container{
     display: flex;
     padding: 5px 10px;

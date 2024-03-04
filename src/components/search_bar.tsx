@@ -3,12 +3,15 @@ import {ChangeEvent, useContext, useState} from "react";
 import AppContext from "../app_context.tsx";
 import {base_route} from "../App.tsx";
 import {useNavigate} from "react-router-dom";
+import {NavbarContext} from "./navbar.tsx";
 
-function SearchBar() {
+function SearchBar(props: {isTablet: boolean}) {
 
     const [inputText, setInputText] = useState("");
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     const {update_search_result_list} = useContext(AppContext);
+
+    const {setIsMenuOpen} = useContext(NavbarContext);
 
     const options = {
         method: 'GET',
@@ -56,6 +59,7 @@ function SearchBar() {
     return (
         <div style={{display: "flex"}}>
             <input type="text"
+                   style={props.isTablet ? {width: "100%"} : {width: "500px"}}
                    onChange={handleChange}
                    onKeyDown={(e) => {
                        if (e.key === "Enter")
@@ -72,6 +76,9 @@ function SearchBar() {
                    className="search-bar"/>
 
                 <button className="search-btn text-decoration-none" onClick={() => {
+
+                    setIsMenuOpen(false);
+
                     if (inputText !== "") {
                         console.log("fetching search results")
                         navigate(`${base_route}/search`);

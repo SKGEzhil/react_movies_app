@@ -3,22 +3,27 @@ import MoviePreview from "../components/movie_preview.tsx";
 import AppContext from "../app_context.tsx";
 import {useContext} from "react";
 import "../styles/search.css";
+import {useMediaQuery} from "react-responsive";
 
 function Search() {
 
     const {search_result_list} = useContext(AppContext);
 
+    const isMobile = useMediaQuery({query: "(max-width: 600px)"});
+    const isTablet = useMediaQuery({query: "(max-width: 1200px)"});
+
     return (
         <>
             <Navbar/>
             <p className="search-title" style={{position: "relative", top: "82px", left: "20px"}}>{search_result_list.length !== 0 ? `Found ${search_result_list.length} movies` : "No movies found"}</p>
-            <div style={{display: "grid",
-                position: "relative",
-                top: "102px",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-                marginLeft: "10px",
-                marginRight: "10px",
-                gap: "10px"}}>
+            <div
+                className={isMobile ? "grid-3" : isTablet ? "grid-5" : "grid-8"}
+                style={{
+                    position: "relative",
+                    top: "102px",
+                    marginLeft: "10px",
+                    marginRight: "10px"
+                }}>
                 {search_result_list.map((movie: {
                     title: string;
                     year: string;
