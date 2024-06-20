@@ -5,17 +5,46 @@ import {
 } from "react-router-dom";
 import Home from "./pages/home.tsx";
 import AppContext from "./app_context.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import WatchList from "./pages/watch_list.tsx";
 import Search from "./pages/search.tsx";
 import ErrorPage from "./pages/error_page.tsx";
 import PageUnderDevelopment from "./pages/page_under_development.tsx";
+import LoginPage from "./pages/login_page.tsx";
+import UserContext from "./user_context.tsx";
+import Cookies from 'js-cookie';
 
 export const base_route = "/react_movies_app"
 
 function App() {
 
     //Inits
+
+    const userInit = () => {
+        if(Cookies.get('token') !== null){
+            fetch('http://localhost:8080/token_auth', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${Cookies.get('token')}`,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(r => r.json())
+                .then(r => {
+                    if (r.status === "ok") {
+                        setUsername(r.data.username);
+                    } else {
+                        alert(r.error)
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+    }
+
+    useEffect(() => {
+        userInit();
+    }, []);
+
 
     if(localStorage.getItem('watchlist') === null){
         localStorage.setItem('watchlist', JSON.stringify([]));
@@ -57,6 +86,8 @@ function App() {
         backdrop: ''
     }]);
 
+    const [username, setUsername] = useState('');
+
     const router = createBrowserRouter([
         {
             path: `*`,
@@ -87,20 +118,28 @@ function App() {
             element: <Search />,
         },
 
+        {
+            path: `${base_route}/login`,
+            element: <LoginPage />,
+        },
+
         ]
     );
 
-
     return (
         <div style={{background: "#141414"}}>
-            <AppContext.Provider value={{movies_list,
-                update_list, tv_list, update_tv_list,
-                search_result_list, update_search_result_list,
-                watchlist, update_watchlist}}>
-                {/*<Home/>*/}
-                <RouterProvider router={router} />
+            <UserContext.Provider value={{username, setUsername}}>
 
-            </AppContext.Provider>
+                <AppContext.Provider value={{movies_list,
+                    update_list, tv_list, update_tv_list,
+                    search_result_list, update_search_result_list,
+                    watchlist, update_watchlist}}>
+
+                        <RouterProvider router={router} />
+
+                </AppContext.Provider>
+
+            </UserContext.Provider>
 
         </div>
     )

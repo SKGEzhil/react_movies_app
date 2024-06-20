@@ -117,22 +117,6 @@ function Home() {
                     <Slider data={tv_list} sliderTitle={"TV Shows"}/>
 
 
-                    {/*{movies_list.map((movie: {*/}
-                    {/*    title: string;*/}
-                    {/*    year: string;*/}
-                    {/*    img: string;*/}
-                    {/*    id: string;*/}
-                    {/*}, index: Key | null | undefined) => {*/}
-                    {/*    return (*/}
-                    {/*        <MoviePreview*/}
-                    {/*            key={index}*/}
-                    {/*            title={movie.title}*/}
-                    {/*            year={movie.year}*/}
-                    {/*            img={movie.img}*/}
-                    {/*            id={movie.id}*/}
-                    {/*         backdrop={movie.backdrop}/>*/}
-                    {/*    )*/}
-                    {/*})}*/}
                 </div>
 
             </div>

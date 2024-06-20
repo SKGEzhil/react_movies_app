@@ -4,6 +4,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {base_route} from "../App.tsx";
 import {useMediaQuery} from "react-responsive";
 import {createContext, useContext, useState} from "react";
+import UserContext from "../user_context.tsx";
 
 export const NavbarContext = createContext({
     isMenuOpen: false, setIsMenuOpen: (value: boolean) => {console.log(value)}
@@ -11,6 +12,8 @@ export const NavbarContext = createContext({
 
 
 function Navbar() {
+
+    const {username} = useContext(UserContext);
 
     const isMobile = useMediaQuery({query: "(max-width: 600px)"});
     const isTablet = useMediaQuery({query: "(max-width: 1200px)"});
@@ -67,8 +70,10 @@ function Navbar() {
                 <NavLink to={`${base_route}/movies`} className="navbar-item">Movies</NavLink>
                 <NavLink to={`${base_route}/series`} className="navbar-item">Series</NavLink>
                 <NavLink to={`${base_route}/watch_list`} className="navbar-item">MyList</NavLink>
+                    <NavLink to={`${base_route}/login`} className="navbar-item">{username !== "" ? username : "Login"}</NavLink>
 
-            </div>}
+
+                </div>}
 
             {isMenuOpen ?
 
@@ -110,6 +115,8 @@ function MobileNav(){
                     <NavLink to={`${base_route}/movies`} className="navbar-item"><p style={{fontSize: "30px"}}>Movies</p></NavLink>
                     <NavLink to={`${base_route}/series`} className="navbar-item"><p style={{fontSize: "30px"}}>Series</p></NavLink>
                     <NavLink to={`${base_route}/watch_list`} className="navbar-item"><p style={{fontSize: "30px"}}>My List</p></NavLink>
+                    <NavLink to={`${base_route}/login`} className="navbar-item"><p style={{fontSize: "30px"}}>Login</p></NavLink>
+
                 </div>
 
             </div>
